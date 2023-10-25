@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:firebasedatabase/pages/rtdb_pages.dart';
 import 'package:firebasedatabase/user_model.dart';
 import 'package:flutter/material.dart';
 import '../firebase_db_services.dart';
@@ -20,31 +21,37 @@ class _HomePageState extends State<HomePage> {
         children: [
           Center(
             child: ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 Player futballPlayer = Player(
-                    name: "Eldor Shomurodov",
-                    position: "Hujumchi",
-                    number: 14,
-                    height: 1.9,
-                    rating: 72,
-                    country: "Uzbekistan",
-                    thropies: ["Asian cup", "Ozbekiston PFL kubugi", "2019, 2021 O'zb ning eng yaxshi futbolchisi"],
-                    isMusilman: true,
+                  name: "Eldor Shomurodov",
+                  position: "Hujumchi",
+                  number: 14,
+                  height: 1.9,
+                  rating: 72,
+                  country: "Uzbekistan",
+                  thropies: [
+                    "Asian cup",
+                    "Ozbekiston PFL kubugi",
+                    "2019, 2021 O'zb ning eng yaxshi futbolchisi"
+                  ],
+                  isMusilman: true,
                 );
 
-                 DatabaseServices databaseServices = DatabaseServices();
-                 databaseServices.add(futballPlayer);
+                DatabaseServices databaseServices = DatabaseServices();
+                databaseServices.add(futballPlayer);
               },
               child: Text("Add player"),
             ),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           Center(
             child: ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 DatabaseServices databaseServices = DatabaseServices();
                 databaseServices.get().then((value) {
-                  for(final item in value){
+                  for (final item in value) {
                     log(item.thropies.toString());
                   }
                 });
@@ -52,10 +59,12 @@ class _HomePageState extends State<HomePage> {
               child: Text("Get player"),
             ),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           Center(
             child: ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 Player futballPlayer = Player(
                   name: "Muhammad Salah",
                   position: "Hujumchi",
@@ -67,9 +76,9 @@ class _HomePageState extends State<HomePage> {
                   isMusilman: true,
                 );
                 DatabaseServices databaseServices = DatabaseServices();
-                databaseServices.get().then((value){
-                  for(final item in value){
-                    if(item.name == "Eldor Shomurodov"){
+                databaseServices.get().then((value) {
+                  for (final item in value) {
+                    if (item.name == "Eldor Shomurodov") {
                       futballPlayer.id = item.id;
                       databaseServices.updates(futballPlayer);
                     }
@@ -79,14 +88,16 @@ class _HomePageState extends State<HomePage> {
               child: Text("Update player"),
             ),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           Center(
             child: ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 DatabaseServices databaseServices = DatabaseServices();
-                databaseServices.get().then((value){
-                  for(final item in value){
-                    if(item.name == "Muhammad Salah"){
+                databaseServices.get().then((value) {
+                  for (final item in value) {
+                    if (item.name == "Muhammad Salah") {
                       databaseServices.delete(item.id ?? "");
                     }
                   }
@@ -94,6 +105,15 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text("Delete player"),
             ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, RtdbPages.id);
+            },
+            child: Text("RTDB"),
           ),
         ],
       ),

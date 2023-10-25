@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebasedatabase/pages/add_players.dart';
+import 'package:firebasedatabase/pages/rtdb_pages.dart';
 import 'package:firebasedatabase/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomePage(),
       routes: {
+        RtdbPages.id:(context)=> const RtdbPages(),
         HomePage.id:(context)=> const HomePage(),
       },
     );
